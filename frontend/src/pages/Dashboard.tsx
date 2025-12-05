@@ -73,7 +73,7 @@ const Dashboard: React.FC = () => {
             <main className="max-w-7xl mx-auto px-6 py-12">
                 <div className="mb-10">
                     <h2 className="text-2xl font-bold text-gray-900 mb-2">Simulations</h2>
-                    <p className="text-gray-500">Select an environment to begin your agent evaluation.</p>
+                    <p className="text-gray-500">Select an environment to begin your multi-user LLM evaluation.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
