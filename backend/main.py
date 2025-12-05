@@ -63,7 +63,8 @@ async def login(data: LoginRequest):
         raise HTTPException(status_code=400, detail="Username and password required")
     
     # Check if user exists (Async)
-    existing_user = await User.find_one(User.username == data.username)
+    # Use dict syntax to avoid Pydantic v2 "AttributeError" on field access
+    existing_user = await User.find_one({"username": data.username})
     
     hashed_input = hash_password(data.password)
 
