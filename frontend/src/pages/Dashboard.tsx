@@ -42,13 +42,15 @@ const Dashboard: React.FC = () => {
             {/* Header */}
             <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <div className="bg-gray-900 text-white p-1.5 rounded-lg">
-                            <LayoutGrid size={18} />
+                    <div className="flex items-center gap-3">
+                        <div className="bg-gray-900 text-white p-1.5 rounded-lg flex-shrink-0">
+                            <LayoutGrid size={20} />
                         </div>
-                        <span className="font-bold text-lg tracking-tight">MUSES-Sandbox</span>
-                        <span className="hidden md:inline text-gray-400 font-light mx-2">:</span>
-                        <span className="hidden md:inline text-sm font-medium text-gray-600">Multi-User Large Language Models Sandbox Playground</span>
+                        <div className="flex items-baseline gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
+                            <span className="font-bold text-base md:text-lg tracking-tight text-gray-900">MUSES-Sandbox</span>
+                            <span className="hidden md:inline text-gray-400 font-light">:</span>
+                            <span className="hidden md:inline text-base font-medium text-gray-600 truncate">Multi-User Large Language Models Sandbox Playground</span>
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-4">
