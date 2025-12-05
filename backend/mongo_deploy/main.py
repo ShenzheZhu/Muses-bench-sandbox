@@ -14,15 +14,20 @@ from models import User
 # Global state to track DB connection
 db_connected = False
 
+# Global state to track DB connection
+db_connected = False
+db_error = None
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global db_connected
+    global db_connected, db_error
     # Startup: Connect to DB
     try:
         await init_db()
         db_connected = True
         print("Database connected successfully")
     except Exception as e:
+        db_error = str(e)
         print(f"Database connection failed: {e}")
         # We allow the app to start even if DB fails for logging purposes
     yield
@@ -55,7 +60,11 @@ def hash_password(password: str) -> str:
 
 @app.get("/")
 def root():
-    return {"message": "Muses-bench Sandbox API is running", "db_connected": db_connected}
+    return {
+        "message": "Muses-bench Sandbox API is running", 
+        "db_connected": db_connected,
+        "last_error": db_error
+    }
 
 @app.post("/auth/login")
 async def login(data: LoginRequest):
@@ -65,7 +74,10 @@ async def login(data: LoginRequest):
     - If user new -> Create with password
     """
     if not db_connected:
-        raise HTTPException(status_code=503, detail="Database connection failed. Please check MONGODB_URI in Vercel Settings.")
+        raise HTTPException(
+            status_code=503, 
+            detail=f"Database connection failed. Error: {db_error}. Check MONGODB_URI."
+        )
 
     if not data.username or not data.password:
         raise HTTPException(status_code=400, detail="Username and password required")
