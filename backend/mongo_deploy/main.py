@@ -14,16 +14,28 @@ from models import User
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: Connect to DB
-    await init_db()
+    try:
+        await init_db()
+        print("Database connected successfully")
+    except Exception as e:
+        print(f"Database connection failed: {e}")
+        # We allow the app to start even if DB fails, giving us a chance to see 500 errors with CORS
     yield
     # Shutdown
 
 app = FastAPI(lifespan=lifespan, title="Muses-bench Web Sandbox (MongoDB)")
 
 # Configure CORS
+origins = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://muses-bench-sandbox.vercel.app",  # Your Frontend Deployment
+    "*" # Fallback
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
