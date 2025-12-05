@@ -46,9 +46,9 @@ const Dashboard: React.FC = () => {
                         <div className="bg-gray-900 text-white p-1.5 rounded-lg">
                             <LayoutGrid size={18} />
                         </div>
-                        <span className="font-bold text-lg tracking-tight">Muses</span>
-                        <span className="text-gray-400 font-light mx-2">/</span>
-                        <span className="text-sm font-medium text-gray-600">Sandbox</span>
+                        <span className="font-bold text-lg tracking-tight">MUSES-Sandbox</span>
+                        <span className="hidden md:inline text-gray-400 font-light mx-2">:</span>
+                        <span className="hidden md:inline text-sm font-medium text-gray-600">Multi-User Large Language Models Sandbox Playground</span>
                     </div>
 
                     <div className="flex items-center gap-4">
